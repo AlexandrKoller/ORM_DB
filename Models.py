@@ -19,7 +19,7 @@ class Book(Base):
     title = sqlalchemy.Column(sqlalchemy.String(length=40), unique=True, nullable=False)
     id_publisher = sqlalchemy.Column(sqlalchemy.Integer,
                                      sqlalchemy.ForeignKey('publisher.id'), nullable=False)
-    publisher = relationship(Publisher, backref="publisher")
+    publisher = relationship(Publisher, backref="book")
 
     def __str__(self):
         return f'{self.title}'
@@ -40,10 +40,10 @@ class Stock(Base):
     count = sqlalchemy.Column(sqlalchemy.Integer, nullable=False)
     id_book = sqlalchemy.Column(sqlalchemy.Integer,
                                 sqlalchemy.ForeignKey('book.id'), nullable=False)
-    book = relationship(Book, backref="book")
+    book = relationship(Book, backref="stock")
     id_shop = sqlalchemy.Column(sqlalchemy.Integer,
                                 sqlalchemy.ForeignKey('shop.id'), nullable=False)
-    shop = relationship(Shop, backref="shop")
+    shop = relationship(Shop, backref="stock")
 
 
 class Sale(Base):
@@ -53,7 +53,7 @@ class Sale(Base):
     date_sale = sqlalchemy.Column(sqlalchemy.DateTime, nullable=False)
     id_stock = sqlalchemy.Column(sqlalchemy.Integer,
                                  sqlalchemy.ForeignKey('stock.id'), nullable=False)
-    stock = relationship(Stock, backref="stock")
+    stock = relationship(Stock, backref="sale")
     count = sqlalchemy.Column(sqlalchemy.Integer, nullable=False)
 
     def __str__(self):
@@ -61,6 +61,9 @@ class Sale(Base):
 
 
 def create_tables(engine):
-    #Base.metadata.drop_all(engine)
+    # Base.metadata.drop_all(engine)
     Base.metadata.create_all(engine)
 
+
+if __name__ == '__main__':
+    pass

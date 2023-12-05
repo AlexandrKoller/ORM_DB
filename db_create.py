@@ -3,9 +3,15 @@ import json
 import sqlalchemy
 from sqlalchemy.orm import sessionmaker
 
-from Models import create_tables, Publisher, Shop, Book, Stock, Sale
+from models import create_tables, Publisher, Shop, Book, Stock, Sale
+data_base_type = '///'
+user_name = '////'
+pass_word = '///'
+host = 'localhost'
+host_port = '5432'
+data_base_name = '////'
 
-DSN = 'postgresql://postgres:9162784@localhost:5432/test2'
+DSN = f'{data_base_type}://{user_name}:{pass_word}@{host}:{host_port}/{data_base_name}'
 engine = sqlalchemy.create_engine(DSN)
 
 create_tables(engine)
